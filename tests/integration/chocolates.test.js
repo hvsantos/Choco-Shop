@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const chocoList = [
+const chocolates = [
   { id: 1, name: 'Mint Intense', brandId: 1 },
   { id: 2, name: 'White Coconut', brandId: 1 },
   { id: 3, name: 'Mon Chéri', brandId: 2 },
@@ -29,6 +29,7 @@ describe('Teste o caminho /chocolates', () => {
   });
 
   it('Retorna a lista completa de chocolates', async () => {
-    expect(resp.body.chocolates).to.deep.equal(chocoList);
+    expect(resp.body.chocolates).to.be.instanceof(Array);
+    expect(resp.body.chocolates).to.deep.equal(chocolates);
   });
 });
