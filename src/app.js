@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const chocoList = [
+const chocolates = [
   { id: 1, name: 'Mint Intense', brandId: 1 },
   { id: 2, name: 'White Coconut', brandId: 1 },
   { id: 3, name: 'Mon Chéri', brandId: 2 },
@@ -12,12 +12,12 @@ const chocoList = [
 app.get('/', (req, res) => res.status(200).json({ message: 'request recebido' }));
 
 app.get('/chocolates', (req, res) => {
-  res.status(200).json({ ...chocoList });
+  res.status(200).json({ chocolates });
 });
 
 app.get('/chocolates/:id', (req, res) => {
   const { id } = req.params;
-  const findById = chocoList.find(({ id: chocoId }) => chocoId === Number(id));
+  const findById = chocolates.find(({ id: chocoId }) => chocoId === Number(id));
 
   if (!findById) return res.status(404).json({ message: 'Não Encontrado' });
 
@@ -26,7 +26,7 @@ app.get('/chocolates/:id', (req, res) => {
 
 app.get('/chocolates/brand/:brandId', (req, res) => {
   const { brandId } = req.params;
-  const findByBrandId = chocoList
+  const findByBrandId = chocolates
     .filter(({ brandId: chocoBrandId }) => chocoBrandId === Number(brandId));
 
   if (!findByBrandId) return res.status(404).json({ message: 'Não Encontrado' });
