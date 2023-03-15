@@ -1,37 +1,32 @@
 const express = require('express');
 
-const app = express();
+const { getChocolateById, getAllChocolates, getChocolateByBrandId } = require('./chocoHandler');
 
-const chocolates = [
-  { id: 1, name: 'Mint Intense', brandId: 1 },
-  { id: 2, name: 'White Coconut', brandId: 1 },
-  { id: 3, name: 'Mon Chéri', brandId: 2 },
-  { id: 4, name: 'Mounds', brandId: 3 },
-];
+const app = express();
 
 app.get('/', (req, res) => res.status(200).json({ message: 'request recebido' }));
 
-app.get('/chocolates', (req, res) => {
+app.get('/chocolates', async (req, res) => {
+  const chocolates = await getAllChocolates();
   res.status(200).json({ chocolates });
 });
 
-app.get('/chocolates/:id', (req, res) => {
+app.get('/chocolates/:id', async (req, res) => {
   const { id } = req.params;
-  const findById = chocolates.find(({ id: chocoId }) => chocoId === Number(id));
+  const chocolateById = await getChocolateById(Number(id));
 
-  if (!findById) return res.status(404).json({ message: 'Não Encontrado' });
+  if (!chocolateById) return res.status(404).json({ message: 'Não Encontrado' });
 
-  res.status(200).json({ ...findById });
+  res.status(200).json({ chocolateById });
 });
 
-app.get('/chocolates/brand/:brandId', (req, res) => {
+app.get('/chocolates/brand/:brandId', async (req, res) => {
   const { brandId } = req.params;
-  const findByBrandId = chocolates
-    .filter(({ brandId: chocoBrandId }) => chocoBrandId === Number(brandId));
+  const chocolateByBrandId = await getChocolateByBrandId(Number(brandId));
 
-  if (!findByBrandId) return res.status(404).json({ message: 'Não Encontrado' });
+  if (!chocolateByBrandId) return res.status(404).json({ message: 'Não Encontrado' });
 
-  res.status(200).json({ ...findByBrandId });
+  res.status(200).json({ chocolateByBrandId });
 });
 
 module.exports = app;
