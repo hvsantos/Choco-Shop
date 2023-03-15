@@ -20,13 +20,13 @@ const getAllChocolates = async () => {
 
 const getChocolateById = async (id) => {
   const chocolates = await getChocolateList();
-  const chocolateById = chocolates.find(({ id: chocoId }) => chocoId === id);
+  const chocolateById = chocolates.chocolates.find(({ id: chocoId }) => chocoId === id);
   return chocolateById;
 };
 
 const getChocolateByBrandId = async (brandId) => {
   const chocolates = await getChocolateList();
-  const chocolateByBrandId = chocolates
+  const chocolateByBrandId = chocolates.chocolates
     .filter(({ brandId: chocoBrandId }) => chocoBrandId === brandId);
   return chocolateByBrandId;
 };
