@@ -1,13 +1,14 @@
 const fs = require('fs');
 
-const { join } = require('path');
+const path = require('path');
 
 const getChocolateList = async () => {
-  const path = './files/chocolateList.json';
+  const filePath = path.join(__dirname, 'files', 'chocolateList.json');
   try {
-    const content = await fs.readFile(join(__dirname, path), 'utf-8');
+    const content = await fs.promises.readFile(filePath, 'utf-8');
     return JSON.parse(content);
   } catch (e) {
+    console.error(e);
     return null;
   }
 };
