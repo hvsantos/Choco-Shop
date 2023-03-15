@@ -17,7 +17,7 @@ app.get('/chocolates/:id', async (req, res) => {
 
   if (!chocolateById) return res.status(404).json({ message: 'Não Encontrado' });
 
-  res.status(200).json({ chocolateById });
+  res.status(200).json({ chocolate: chocolateById });
 });
 
 app.get('/chocolates/brand/:brandId', async (req, res) => {
@@ -26,7 +26,7 @@ app.get('/chocolates/brand/:brandId', async (req, res) => {
 
   if (!chocolateByBrandId) return res.status(404).json({ message: 'Não Encontrado' });
 
-  res.status(200).json({ chocolateByBrandId });
+  res.status(200).json({ chocolate: chocolateByBrandId });
 });
 
 module.exports = app;
